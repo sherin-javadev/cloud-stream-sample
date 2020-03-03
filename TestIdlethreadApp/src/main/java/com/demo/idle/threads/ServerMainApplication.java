@@ -10,7 +10,6 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import org.springframework.messaging.Message;
 @SpringBootApplication
 @EnableBinding(BindingInterface.class)
 public class ServerMainApplication {
