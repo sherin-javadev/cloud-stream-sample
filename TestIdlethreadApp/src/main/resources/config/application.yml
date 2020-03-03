@@ -1,0 +1,48 @@
+spring:
+  kafka.bootstrap-servers: localhost:9092
+  kafka.consumer.bootstrap-servers: localhost:9092
+  cloud.stream.kafka.streams.binder.brokers: localhost:9092
+  cloud.stream.kafka.binder.brokers: localhost:9092
+  cloud.stream.kafka.binder.zkNodes: localhost:2181
+  cloud.stream.kafka.streams:
+    binder:
+      application-id: demo-application
+      min-partition-count: 1
+      auto-add-partitions: false
+      configuration:
+        num.stream.threads: 10
+        key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default:
+          key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+  cloud.stream.bindings:
+    topicA-in:
+      group: topic-A-InGroup
+      contentType: application/json
+      destination: topicA
+      consumer:
+        instance-count: 1
+        instance-index: 0
+        headerMode: raw
+        concurrency: 10
+      producer:
+        headerMode: raw
+    topicB-in:
+      group: topic-B-InGroup
+      contentType: application/json
+      destination: topicB
+      consumer:
+        instance-count: 1
+        instance-index: 0
+        headerMode: raw
+        concurrency: 1
+      producer:
+        headerMode: raw
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
