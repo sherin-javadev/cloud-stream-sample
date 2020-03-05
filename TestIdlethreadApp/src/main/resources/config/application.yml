@@ -1,3 +1,4 @@
+server.port: 9090
 spring:
   kafka.bootstrap-servers: localhost:9092
   kafka.consumer.bootstrap-servers: localhost:9092
@@ -10,7 +11,7 @@ spring:
       min-partition-count: 1
       auto-add-partitions: false
       configuration:
-        num.stream.threads: 10
+        num.stream.threads: 1
         key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
         value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
         default:
@@ -18,27 +19,27 @@ spring:
           value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
   cloud.stream.bindings:
     topicA-in:
-      group: topic-A-InGroup
-      contentType: application/json
+      group: topicAInGroup
       destination: topicA
       consumer:
-        instance-count: 1
-        instance-index: 0
-        headerMode: raw
+        instance-count: 2
+        instance-index: 1
+        headerMode: headers
         concurrency: 10
+        partitioned: true
       producer:
-        headerMode: raw
+        headerMode: headers
     topicB-in:
-      group: topic-B-InGroup
-      contentType: application/json
+      group: topicBInGroup
       destination: topicB
       consumer:
-        instance-count: 1
-        instance-index: 0
-        headerMode: raw
+        instance-count: 2
+        instance-index: 1
+        headerMode: headers
         concurrency: 1
+        partitioned: false
       producer:
-        headerMode: raw
+        headerMode: headers
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

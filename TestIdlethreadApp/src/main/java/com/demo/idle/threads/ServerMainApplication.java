@@ -25,7 +25,7 @@ public class ServerMainApplication {
     }
 	@Bean
 	public NewTopic toNewTopic() {
-		return new NewTopic("topicA", 10,(short)1);
+		return new NewTopic("topicA", 20,(short)1);
 	}
 
 	@Bean
