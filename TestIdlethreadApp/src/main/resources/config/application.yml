@@ -17,29 +17,37 @@ spring:
         default:
           key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
           value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    bindings:
+      topicA-in:
+        consumer:
+          application-id: topic-Ac
+      topicB-in:
+        consumer:
+          application-id: topic-Bc
+          
   cloud.stream.bindings:
     topicA-in:
-      group: topicAInGroup
+      group: topic-A-In
       destination: topicA
       consumer:
-        instance-count: 2
+        instance-count: 1
         instance-index: 1
-        headerMode: headers
+        headerMode: raw
         concurrency: 10
         partitioned: true
       producer:
-        headerMode: headers
+        headerMode: raw
     topicB-in:
-      group: topicBInGroup
+      group: topic-B-In
       destination: topicB
       consumer:
-        instance-count: 2
+        instance-count: 1
         instance-index: 1
-        headerMode: headers
+        headerMode: raw
         concurrency: 1
         partitioned: false
       producer:
-        headerMode: headers
+        headerMode: raw
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
