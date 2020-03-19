@@ -1,3 +1,7 @@
+logging:
+  file: D:\\demolog\demo.log
+  level:
+    org.springframework.kafka: debug
 server.port: 9090
 spring:
   kafka.bootstrap-servers: localhost:9092
@@ -18,36 +22,35 @@ spring:
           key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
           value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
     bindings:
-      topicA-in:
-        consumer:
-          application-id: topic-Ac
       topicB-in:
         consumer:
           application-id: topic-Bc
-          
+      topicA-in:
+        consumer:
+          application-id: topic-Ac
   cloud.stream.bindings:
-    topicA-in:
-      group: topic-A-In
-      destination: topicA
-      consumer:
-        instance-count: 1
-        instance-index: 1
-        headerMode: raw
-        concurrency: 10
-        partitioned: true
-      producer:
-        headerMode: raw
     topicB-in:
       group: topic-B-In
       destination: topicB
       consumer:
         instance-count: 1
         instance-index: 1
-        headerMode: raw
+        headerMode: headers
         concurrency: 1
         partitioned: false
       producer:
-        headerMode: raw
+        headerMode: headers
+    topicA-in:
+      group: topic-A-In
+      destination: topicA
+      consumer:
+        instance-count: 1
+        instance-index: 1
+        headerMode: headers
+        concurrency: 10
+        partitioned: true
+      producer:
+        headerMode: headers
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
