@@ -23,7 +23,7 @@ public class ServerMainApplication {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-	@Bean
+	/*@Bean
 	public NewTopic toNewTopic() {
 		return new NewTopic("topicA", 20,(short)1);
 	}
@@ -31,13 +31,13 @@ public class ServerMainApplication {
 	@Bean
 	public NewTopic pbdScalabilityTopic() {
 		return new NewTopic("topicB", 1, (short)1);
-	}
+	}*/
 	
-	@StreamListener(BindingInterface.INPUT_A)
+    @StreamListener(BindingInterface.INPUT_A)
 	public void topicAListener(KStream<String,String> input){
 		input.foreach(new ForeachAction<String, String>() {
 		    public void apply(String key, String value) {
-		        System.out.println(key + ": " + value);
+		        System.out.println("topicA" + ": " + value);
 		    }
 		 });
 	}
@@ -46,7 +46,7 @@ public class ServerMainApplication {
 	public void topicBListener(KStream<String,String> input){
 		input.foreach(new ForeachAction<String, String>() {
 		    public void apply(String key, String value) {
-		        System.out.println(key + ": " + value);
+		        System.out.println("topicB" + ": " + value);
 		    }
 		 });
 	}

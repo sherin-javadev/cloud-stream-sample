@@ -16,7 +16,7 @@ public class TestController {
 
 	@PostMapping(value = "test", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public String test(@RequestBody String test){
-		System.out.println(test);
+		//System.out.println(test);
 		kafkaOperations.send("topicA",test);
 		kafkaOperations.send("topicB",test);
 		return test+Math.random();

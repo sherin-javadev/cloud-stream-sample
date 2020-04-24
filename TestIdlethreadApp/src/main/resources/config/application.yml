@@ -15,6 +15,7 @@ spring:
       min-partition-count: 1
       auto-add-partitions: false
       configuration:
+        auto.offset.reset: latest
         num.stream.threads: 1
         key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
         value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
@@ -47,10 +48,17 @@ spring:
         instance-count: 1
         instance-index: 1
         headerMode: headers
-        concurrency: 10
+        concurrency: 1
         partitioned: true
       producer:
         headerMode: headers
+  cloud.stream.kafka.bindings:
+    topicB-in:
+      consumer:
+        startOffset: latest
+    topicA-in:
+      consumer:
+        startOffset: latest        
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -58,3 +66,4 @@ spring:
     consumer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+        
